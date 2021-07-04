@@ -95,10 +95,11 @@ const Layout = ({ location, title, children }) => {
           style={{ minHeight: 200 }}
         >
           {header}
+          <p>Functional programming explorations</p>
         </div>
       </div>
 
-      <div className="main-content relative">
+      <div className="main-content relative flex flex-col justify-between">
         <main>{children}</main>
         <Footer />
       </div>

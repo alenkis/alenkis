@@ -1,15 +1,15 @@
 module.exports = {
-  pathPrefix: "/leonids",
+  pathPrefix: "/alenkis",
   siteMetadata: {
-    title: `Leonids`,
+    title: `alenkis`,
     author: {
-      name: `@ry_zou`,
-      summary: `web dev`,
+      name: `@alen_kis`,
+      summary: `Web Dev`,
     },
     description: `A simple, fixed sidebar two columns Gatsby.js blog starter.`,
-    siteUrl: `https://renyuanz.github.io/leonids`,
+    siteUrl: `https://www.alenkis.com`,
     social: {
-      twitter: `ry_zou`,
+      twitter: `alen_kis`,
     },
     defaultImage: "images/bg.jpeg",
   },
@@ -62,8 +62,8 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Ryz`,
-        short_name: `Ryz`,
+        name: `Alen`,
+        short_name: `Alen`,
         start_url: `/`,
         background_color: `#ffffff`,
         theme_color: `#663399`,

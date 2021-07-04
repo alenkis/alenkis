@@ -2,10 +2,6 @@
 
 **[Leonids](http://renyuanz.github.io/leonids)** is a clean, fixed sidebar Gatsby starter which is perfect for powering your GitHub hosted blog.
 
-### Preview
-
-![theme-preview](./content/assets/theme-preview.gif)
-
 ## What is Leonids?
 
 A blazing fast static blog theme built on Gatsby.js
