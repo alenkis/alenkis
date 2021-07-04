@@ -3,6 +3,7 @@ import React from "react"
 import { PageProps, Link, graphql } from "gatsby"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
+import Pills from "../components/pill"
 import { rhythm } from "../utils/typography"
 
 type PageContext = {
@@ -51,6 +52,7 @@ const BlogIndex = ({
       <SEO title="All posts" />
       {posts.map(({ node }) => {
         const title = node.frontmatter.title || node.fields.slug
+        const { categories } = node.frontmatter
         return (
           <article key={node.fields.slug}>
             <header>
@@ -64,6 +66,7 @@ const BlogIndex = ({
                 </Link>
               </h3>
               <small>{node.frontmatter.date}</small>
+            <Pills categories={categories} />
             </header>
             <section>
               <p
@@ -130,6 +133,7 @@ export const pageQuery = graphql`
             date(formatString: "MMMM DD, YYYY")
             title
             description
+            categories
           }
         }
       }
