@@ -3,10 +3,10 @@ module.exports = {
   siteMetadata: {
     title: `alenkis`,
     author: {
-      name: `@alen_kis`,
+      name: `Alen Kis`,
       summary: `Web Dev`,
     },
-    description: `A simple, fixed sidebar two columns Gatsby.js blog starter.`,
+    description: `Programming blog focused on functional programming.`,
     siteUrl: `https://www.alenkis.com`,
     social: {
       twitter: `alen_kis`,
