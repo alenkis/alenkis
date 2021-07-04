@@ -66,7 +66,7 @@ const strings = concatAll(getArraySemigroup<string>())(["hello"])([["world"], ["
 \
 So far we've seen how to re-implement what we already can do, in a somewhat more contrived way, along with some Typescript generic gymnastics with `getArraySemigroup` (so we can use it for both `Array<number>` and `Array<string>`).
 
-Let's extend this to work with our example of `Product`.
+Let's extend this to work with our example of a `Product`.
 ```ts
 interface Product {
   name: string;
@@ -99,6 +99,7 @@ const mergeCategories: Semigroup<Array<string>> = {
   concat: (first, second) => [...new Set([...first, ...second])]
 }
 
+// If we know how to concat objects fields, we automatically know how to merge the whole object as well (using `struct`)
 const mergeProducts: Semigroup<Product> = struct({
   name: keepLongerName,
   price: keepLowerPrice,
@@ -107,14 +108,15 @@ const mergeProducts: Semigroup<Product> = struct({
 
 const products: Product[] = [
   {name: 'Echo Dot', price: 49.99, categories: ['speaker', 'home']}, 
-  {name: 'Echo Dot 3rd gen', price: 59.99, categories: ['smart']}
-  ]
+  {name: 'Echo Dot 3rd gen', price: 59.99, categories: ['smart']},
+  {name: 'Echo', price: 39.99, categories: []}
+]
 const defaultProduct: Product = { name: '', price: Number.POSITIVE_INFINITY, categories: [] }
 
 export const mergedProducts = concatAll(mergeProducts)(defaultProduct)(products)
 /* {
 "name": "Echo Dot 3rd gen", 
-"price": 49.99,
+"price": 39.99,
 "categories": ["speaker", "home", "smart"]
 } */
 
