@@ -30,7 +30,7 @@ interface Product {
 }
 ```
 \
-This is where a `Semigroup`[^1] concept comes in. `Semigroup` is a _typeclass_[^2], but instead of going deeper into what that means, let's explain _what it does_. In order for something to _behave_ like a Semigroup, it needs to have a `concat` method defined for it's type. In other words, we need to know how to combine elements of type `T`
+This is where a `Semigroup`[^1] concept comes in. _`Semigroup` is a closed and associative algebraic structure_. It's implemented as a _typeclass_[^2], but instead of going deeper into what all of that means, let's explain _what it does_. In order for something to _behave_ like a Semigroup, it needs to have a `concat` method defined for it's type. In other words, we need to know how to combine elements of type `T` and produce another value of type `T` (the `closed` part from the definition)
 
 ```ts
 interface Semigroup<T> {
@@ -58,13 +58,15 @@ const concatenatedString = concatString('foo')(["bar"]) // "foobar"
 const getArraySemigroup = <T>(): Semigroup<Array<T>> => ({
   concat: (first, second) => first.concat(second)
 })
+const numberArraySemigroup = getArraySemigroup<number>()
+const stringArraySemigroup = getArraySemigroup<string>()
 
-const numbers = concatAll(getArraySemigroup<number>())([1,2,3])([[4, 5], [6]]) // [1,2,3,4,5,6]
-const strings = concatAll(getArraySemigroup<string>())(["hello"])([["world"], ["!"]]) // ["hello", "world"]
+const numbers = concatAll(numberArraySemigroup)([1,2,3])([[4, 5], [6]]) // [1,2,3,4,5,6]
+const strings = concatAll(stringArraySemigroup)(["hello"])([["world"], ["!"]]) // ["hello", "world"]
 
 ```
 \
-So far we've seen how to re-implement what we already can do, in a somewhat more contrived way, along with some Typescript generic gymnastics with `getArraySemigroup` (so we can use it for both `Array<number>` and `Array<string>`).
+So far we've seen how to re-implement what we already can do, in a somewhat more contrived way, along with some Typescript generics gymnastics with `getArraySemigroup` (so we can use it for both `Array<number>` and `Array<string>`).
 
 Let's extend this to work with our example of a `Product`.
 ```ts
@@ -125,5 +127,5 @@ export const mergedProducts = concatAll(mergeProducts)(defaultProduct)(products)
 \
 In conclusion, `Semigroup` gives us a way to combine or merge entities of the same type, whatever that type may be, as long as we provide a default (initial) value.
 
-[^1]: [Semigroup](https://en.wikipedia.org/wiki/Semigroup) is an algebraic structure consisting of a set together with an associative binary operation.\
-[^2]: [Typeclass](https://en.wikipedia.org/wiki/Type_class) is a way to achieve polymorphism. [Great resource on typescript typeclasses](https://paulgray.net/typeclasses-in-typescript/)
+[^1]: [Semigroup](https://en.wikipedia.org/wiki/Semigroup) is an algebraic structure consisting of a set together with an associative binary operation.
+[^2]: [Typeclass](https://en.wikipedia.org/wiki/Type_class) is a way to achieve polymorphism. Here's a great [resource](https://paulgray.net/typeclasses-in-typescript/) on typescript typeclasses!
