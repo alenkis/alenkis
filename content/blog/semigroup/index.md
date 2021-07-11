@@ -6,7 +6,17 @@ categories: [typescript, fp-ts, algebraic structures]
 comments: false
 ---
 
-Composability is arguably one of the stronger features of the functional programming paradigm because it allows us to write modular code and achieve complex behavior by composing the smaller pieces together (think LEGO!). _But, what does it really mean to combine things together?_
+This is a series of articles where I'm attempting to describe most common algebraic structures implemented by [fp-ts](https://github.com/gcanti/fp-ts) library:
+
+- **Part 1: Semigroup**
+- [Part 2: Monoid](/monoid)
+- [Part 3: Equality and Ordering](/equality-and-ordering)
+
+---
+
+Composability is arguably one of the stronger features of the functional programming paradigm because it allows us to write modular code and achieve complex behavior by composing the smaller pieces together (think LEGO!). Functional programming provides us patterns to abstract certain operations over different types (making them polymorphic), making them more generic, reusable and testable. One such operation is merging or combining.
+
+_But, what does it really mean to combine things together?_
 
 We already know how to combine strings:
 
@@ -97,14 +107,17 @@ One nice approach we can take here is to come up with merge strategies for these
 ```ts
 import { struct } from "fp-ts/Semigroup"
 
+// Always keep the longer name
 const KeepLongerName: Semigroup<string> = {
   concat: (first, second) => (first.length >= second.length ? first : second),
 }
 
+// Keep the product with the lower price
 const KeepLowerPrice: Semigroup<number> = {
   concat: (first, second) => (first <= second ? first : second),
 }
 
+// Combine unique categories
 const MergeCategories: Semigroup<Array<string>> = {
   concat: (first, second) => [...new Set([...first, ...second])],
 }
@@ -121,6 +134,8 @@ const products: Product[] = [
   { name: "Echo Dot 3rd gen", price: 59.99, categories: ["smart"] },
   { name: "Echo", price: 39.99, categories: [] },
 ]
+
+// Semigroup needs default value to start with
 const defaultProduct: Product = {
   name: "",
   price: Number.POSITIVE_INFINITY,
@@ -138,6 +153,6 @@ export const mergedProducts = concatAll(ProductSemigroup)(defaultProduct)(
 ```
 
 \
-In conclusion, `Semigroup` gives us a way to combine or merge entities of the same type, whatever that type may be, as long as we provide a default (initial) value. We will introduce `Monoid` typeclass in the [next article](/monoid) to explain how we can merge types without providing a default value but instead providing special `empty` (or identity) property.
+In conclusion, `Semigroup` gives us a way to combine or merge entities of the same type, whatever that type may be, as long as we provide a default (initial) value. We will introduce `Monoid` typeclass in the [next article](/monoid) to explain how we can merge types without providing a default value but instead providing special `empty` (or `identity`) property.
 
 [^1]: [Typeclass](https://en.wikipedia.org/wiki/Type_class) is a way to achieve polymorphism. Here's a great [resource](https://paulgray.net/typeclasses-in-typescript/) on typescript typeclasses!

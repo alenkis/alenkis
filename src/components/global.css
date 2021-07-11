@@ -62,6 +62,10 @@ article section blockquote {
   margin-left: 2rem;
 }
 
+.gatsby-highlight pre .language-ts .operator {
+  background: none;
+}
+
 button {
   border: none;
   margin: 0;
