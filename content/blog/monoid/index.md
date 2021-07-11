@@ -14,6 +14,11 @@ interface Monoid<T> extends Semigroup<T> {
 }
 ```
 
+More formally, all Monoids are Semigroups _if and only if_ they obey the following associativity rules:
+
+> - Right identity => `concat`(t, empty) == t
+> - Left identity &nbsp; => `concat`(empty, t) == t
+
 The empty element provides a way to merge two monoids without specifying the default value like we had to do with Semigroups. Let's see a couple of examples for basic types like numbers, strings and arrays:
 
 ```ts
@@ -51,7 +56,8 @@ concatAll(MonoidArrayString)([["hello"], ["world"]]) // ["hello", "world"]
 concatAll(MonoidArrayString)([]) // []
 ```
 
-We can reimplement our previous example with `Product` using Monoids instead of Semigroups to avoid defining a default value for the `Product`. Since every specific Monoid (`KeepLongerName`, `KeepLowerPrice` and `MergeCategories`) define an empty value, we no longer how to worry about the default value for the `Product`; the responsability has shifted to the individual Monoids.
+\
+We can reimplement our previous example with `Product` using Monoids instead of Semigroups to avoid defining a default value for the `Product`. Since every specific Monoid (`KeepLongerName`, `KeepLowerPrice` and `MergeCategories`) defines an empty value, we no longer have to worry about the default value for the `Product`; the responsability has shifted to the individual Monoids.
 
 ```ts
 // Reimplement example from Semigroup, but now using Monoids
@@ -76,8 +82,7 @@ const MergeCategories: Monoid<Array<string>> = {
   empty: [],
 }
 
-// If we know how to concat objects fields, we automatically know how to merge the whole object as well (using `struct`)
-const ProductSemigroup: Monoid<Product> = struct({
+const ProductMonoid: Monoid<Product> = struct({
   name: KeepLongerName,
   price: KeepLowerPrice,
   categories: MergeCategories,
@@ -89,10 +94,12 @@ const products: Product[] = [
   { name: "Echo", price: 39.99, categories: [] },
 ]
 
-export const mergedProducts = concatAll(ProductSemigroup)(products)
+export const mergedProducts = concatAll(ProductMonoid)(products)
 /* {
 "name": "Echo Dot 3rd gen",
 "price": 39.99,
 "categories": ["speaker", "home", "smart"]
 } */
 ```
+
+In conclusion, `Monoid` extends `Semigroup` and the only major difference is that it requires an empty element for the type the Monoid is defined for.

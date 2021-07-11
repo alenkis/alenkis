@@ -1,5 +1,5 @@
 ---
-title: Semigroups
+title: Semigroup
 date: "2021-07-04T15:00:00.000Z"
 description: "Using the Semigroup typeclass to compose complex entities"
 categories: [typescript, fp-ts, algebraic structures]
@@ -138,6 +138,6 @@ export const mergedProducts = concatAll(ProductSemigroup)(defaultProduct)(
 ```
 
 \
-In conclusion, `Semigroup` gives us a way to combine or merge entities of the same type, whatever that type may be, as long as we provide a default (initial) value.
+In conclusion, `Semigroup` gives us a way to combine or merge entities of the same type, whatever that type may be, as long as we provide a default (initial) value. We will introduce `Monoid` typeclass in the [next article](/monoid) to explain how we can merge types without providing a default value but instead providing special `empty` (or identity) property.
 
 [^1]: [Typeclass](https://en.wikipedia.org/wiki/Type_class) is a way to achieve polymorphism. Here's a great [resource](https://paulgray.net/typeclasses-in-typescript/) on typescript typeclasses!

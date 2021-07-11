@@ -50,6 +50,18 @@ blockquote {
   display: inline
 }
 
+article section ul {
+  margin-left: 2rem;
+}
+
+article section ol {
+  margin-left: 2rem;
+}
+
+article section blockquote {
+  margin-left: 2rem;
+}
+
 button {
   border: none;
   margin: 0;
