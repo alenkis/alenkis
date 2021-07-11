@@ -10,9 +10,7 @@
     "strict": true,
     "noImplicitReturns": true,
     "downlevelIteration": true,
-    "noUnusedLocals": false,
     "noUnusedParameters": true,
-    "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
     "stripInternal": true
   },

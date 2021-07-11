@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-starter-leonids",
-  "private": true,
-  "description": "A starter for a blog powered by Gatsby and Markdown",
+  "name": "alenkis",
+  "private": false,
+  "description": "Functional programming blog",
   "version": "0.1.0",
-  "author": "Alen Kis <alen@alenkis.com>",
+  "author": "Alen Kis",
   "bugs": {
     "url": "https://github.com/alenkis/alenkis/issues"
   },
@@ -51,16 +51,16 @@
     "ts-jest": "^27.0.3",
     "typescript": "^4.3.5"
   },
-  "homepage": "https://github.com/renyuanz/leonids#readme",
+  "homepage": "https://alenkis.com",
   "keywords": [
-    "gatsby"
+    "gatsby",
+    "functional",
+    "programming",
+    "fp-ts",
+    "io-ts"
   ],
   "license": "MIT",
   "main": "n/a",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/renyuanz/leonids.git"
-  },
   "scripts": {
     "build": "gatsby build",
     "dev": "gatsby develop",
