@@ -46,6 +46,10 @@ blockquote {
   word-break: break-all;
 }
 
+.footnotes ol li p {
+  display: inline
+}
+
 button {
   border: none;
   margin: 0;

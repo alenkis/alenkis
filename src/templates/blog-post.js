@@ -53,7 +53,8 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
         {/* </footer> */}
       </article>
 
-      <nav>
+      {/*
+       <nav>
         <ul
           style={{
             display: `flex`,
@@ -79,6 +80,7 @@ const BlogPostTemplate = ({ data, pageContext, location }) => {
           </li>
         </ul>
       </nav>
+        */}
     </Layout>
   )
 }

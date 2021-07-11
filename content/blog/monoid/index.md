@@ -1,0 +1,98 @@
+---
+title: Monoid
+date: "2021-07-11T15:00:00.000Z"
+description: "Using the Monoid typeclass to compose with indentity"
+categories: [typescript, fp-ts, algebraic structures]
+comments: false
+---
+
+In the [previous article](/semigroup) we've learned about Semigroups and how they abstract the operation of merging data types through the use of a `concat` operator. A `Monoid` _is_ a `Semigroup`, but it also has defined an `empty` element (sometimes called the `identity` element), which if concatenated with type `a`, gives back the same `a` (neutral operation)
+
+```ts
+interface Monoid<T> extends Semigroup<T> {
+  readonly empty: T
+}
+```
+
+The empty element provides a way to merge two monoids without specifying the default value like we had to do with Semigroups. Let's see a couple of examples for basic types like numbers, strings and arrays:
+
+```ts
+export const MonoidProduct: Monoid<number> = {
+  concat: (first, second) => first * second,
+  empty: 1, // <-- identity element
+}
+
+export const MonoidSum: Monoid<number> = {
+  concat: (first, second) => first + second,
+  empty: 0, // <-- identity element
+}
+
+export const getMonoidArray = <T>(): Monoid<Array<T>> => ({
+  concat: (first, second) => first.concat(second),
+  empty: [], // <-- identity element
+})
+const MonoidArrayNumber = getMonoidArray<number>()
+const MonoidArrayString = getMonoidArray<string>()
+
+// Number products
+concatAll(MonoidProduct)([1, 2, 3, 4, 5]) // 120
+concatAll(MonoidProduct)([]) // 1
+
+// Number sums
+concatAll(MonoidSum)([1, 2, 3, 4, 5]) // 15
+concatAll(MonoidSum)([]) // 0
+
+// Array of numbers joins
+concatAll(MonoidArrayNumber)([1, 2, 3], [4, 5], [6]) // [1, 2, 3, 4, 5, 6]
+concatAll(MonoidArrayNumber)([]) // []
+
+// Array of strings joins
+concatAll(MonoidArrayString)([["hello"], ["world"]]) // ["hello", "world"]
+concatAll(MonoidArrayString)([]) // []
+```
+
+We can reimplement our previous example with `Product` using Monoids instead of Semigroups to avoid defining a default value for the `Product`. Since every specific Monoid (`KeepLongerName`, `KeepLowerPrice` and `MergeCategories`) define an empty value, we no longer how to worry about the default value for the `Product`; the responsability has shifted to the individual Monoids.
+
+```ts
+// Reimplement example from Semigroup, but now using Monoids
+interface Product {
+  name: string
+  price: number
+  categories: Array<string>
+}
+
+const KeepLongerName: Monoid<string> = {
+  concat: (first, second) => (first.length >= second.length ? first : second),
+  empty: "",
+}
+
+const KeepLowerPrice: Monoid<number> = {
+  concat: (first, second) => (first <= second ? first : second),
+  empty: Number.POSITIVE_INFINITY,
+}
+
+const MergeCategories: Monoid<Array<string>> = {
+  concat: (first, second) => [...new Set([...first, ...second])],
+  empty: [],
+}
+
+// If we know how to concat objects fields, we automatically know how to merge the whole object as well (using `struct`)
+const ProductSemigroup: Monoid<Product> = struct({
+  name: KeepLongerName,
+  price: KeepLowerPrice,
+  categories: MergeCategories,
+})
+
+const products: Product[] = [
+  { name: "Echo Dot", price: 49.99, categories: ["speaker", "home"] },
+  { name: "Echo Dot 3rd gen", price: 59.99, categories: ["smart"] },
+  { name: "Echo", price: 39.99, categories: [] },
+]
+
+export const mergedProducts = concatAll(ProductSemigroup)(products)
+/* {
+"name": "Echo Dot 3rd gen",
+"price": 39.99,
+"categories": ["speaker", "home", "smart"]
+} */
+```
