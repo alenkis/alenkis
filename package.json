@@ -68,12 +68,9 @@
     "start": "npm run dev",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
+    "prepare": "husky install",
     "test": "jest",
+    "precommit": "npm run format && npm run build:examples && npm run test",
     "build:examples": "tsc --noEmit"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run format && npm run build:examples && npm run test"
-    }
   }
 }
