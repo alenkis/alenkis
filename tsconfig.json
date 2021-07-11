@@ -14,7 +14,7 @@
     "noUnusedParameters": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "stripInternal": true,
+    "stripInternal": true
   },
   "include": ["./src/examples/"]
 }

@@ -1,7 +1,7 @@
-import React from "react";
+import React from "react"
 
 const Sidebar = ({ header }) => {
-  console.log({ header });
+  console.log({ header })
   return (
     <div
       className="md:h-screen p-4 cover-content"
@@ -9,7 +9,7 @@ const Sidebar = ({ header }) => {
     >
       {header}
     </div>
-  );
-};
+  )
+}
 
-export default Sidebar;
+export default Sidebar
