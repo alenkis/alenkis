@@ -1,5 +1,19 @@
+import { mergedProducts, mergedProductsCurried } from "./semigroup"
+
 describe("Semigroup", () => {
-  it("should", () => {
-    expect(1).toEqual(1)
+  it("should correctly merge products", () => {
+    expect(mergedProducts).toStrictEqual({
+      categories: ["speaker", "home", "smart"],
+      name: "Echo Dot 3rd gen",
+      price: 39.99,
+    })
+  })
+
+  it("should correctly merge products with pipe operator", () => {
+    expect(mergedProductsCurried).toStrictEqual({
+      categories: ["speaker", "home", "smart"],
+      name: "Echo Dot 3rd gen",
+      price: 39.99,
+    })
   })
 })
