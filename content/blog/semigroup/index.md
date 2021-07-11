@@ -53,7 +53,7 @@ const SemigroupString: Semigroup<string> = {
 const concatStrings = concatAll(SemigroupString)
 
 const combinedString = concatStrings('')(["Hello"," ", "world", "!"]) // "Hello world!" 
-const concatenatedString = concatString('foo')(["bar"]) // "foobar"
+const concatenatedString = concatStrings('foo')(["bar"]) // "foobar"
 
 // helper function that returns type specific Array semigroup
 const getArraySemigroup = <T>(): Semigroup<Array<T>> => ({

@@ -8,6 +8,7 @@
     "url": "https://github.com/alenkis/alenkis/issues"
   },
   "dependencies": {
+    "fp-ts": "^2.10.5",
     "gatsby": "^2.24.47",
     "gatsby-image": "^2.4.16",
     "gatsby-plugin-dark-mode": "^1.1.2",
@@ -28,6 +29,7 @@
     "gatsby-source-filesystem": "^2.3.24",
     "gatsby-transformer-remark": "^2.8.28",
     "gatsby-transformer-sharp": "^2.5.13",
+    "io-ts": "^2.2.16",
     "prismjs": "^1.21.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
@@ -40,8 +42,14 @@
     "typography-theme-wordpress-2016": "^0.16.19"
   },
   "devDependencies": {
+    "@types/jest": "^26.0.24",
+    "husky": "^7.0.1",
+    "jest": "^27.0.6",
+    "jest-watch-typeahead": "^0.6.4",
     "prettier": "2.0.5",
-    "tailwindcss": "^1.6.2"
+    "tailwindcss": "^1.6.2",
+    "ts-jest": "^27.0.3",
+    "typescript": "^4.3.5"
   },
   "homepage": "https://github.com/renyuanz/leonids#readme",
   "keywords": [
@@ -60,6 +68,12 @@
     "start": "npm run dev",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
-    "test": "echo \"Write tests!\" && exit 1"
+    "test": "jest",
+    "build:examples": "tsc --noEmit"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format && npm run build:examples && npm run test"
+    }
   }
 }
