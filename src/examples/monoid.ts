@@ -1,18 +1,18 @@
-import { Monoid, struct, concatAll } from "fp-ts/lib/Monoid";
+import { Monoid, struct, concatAll } from "fp-ts/lib/Monoid"
 
 export const MonoidProduct: Monoid<number> = {
   concat: (first, second) => first * second,
-  empty: 1
+  empty: 1,
 }
 
 export const MonoidSum: Monoid<number> = {
   concat: (first, second) => first + second,
-  empty: 0
+  empty: 0,
 }
 
 export const getMonoidArray = <T>(): Monoid<Array<T>> => ({
   concat: (first, second) => first.concat(second),
-  empty: []
+  empty: [],
 })
 
 // Reimplement example from Semigroup, but now using Monoids
@@ -24,17 +24,17 @@ interface Product {
 
 const KeepLongerName: Monoid<string> = {
   concat: (first, second) => (first.length >= second.length ? first : second),
-  empty: ''
+  empty: "",
 }
 
 const KeepLowerPrice: Monoid<number> = {
   concat: (first, second) => (first <= second ? first : second),
-  empty: Number.POSITIVE_INFINITY
+  empty: Number.POSITIVE_INFINITY,
 }
 
 const MergeCategories: Monoid<Array<string>> = {
   concat: (first, second) => [...new Set([...first, ...second])],
-  empty: []
+  empty: [],
 }
 
 // If we know how to concat objects fields, we automatically know how to merge the whole object as well (using `struct`)
@@ -50,9 +50,7 @@ const products: Product[] = [
   { name: "Echo", price: 39.99, categories: [] },
 ]
 
-export const mergedProducts = concatAll(ProductSemigroup)(
-  products
-)
+export const mergedProducts = concatAll(ProductSemigroup)(products)
 /* {
 "name": "Echo Dot 3rd gen",
 "price": 39.99,

@@ -2,6 +2,7 @@ import { ap } from "fp-ts/lib/Identity"
 import { pipe } from "fp-ts/lib/function"
 import { Semigroup, concatAll, struct } from "fp-ts/Semigroup"
 
+
 const numbers: Array<number> = [1, 2, 3].concat(4, 5).concat(6) // [1,2,3,4,5,6]
 const strings: Array<string> = ["hello"].concat("world").concat("!") // ["hello", "world", "!"]
 

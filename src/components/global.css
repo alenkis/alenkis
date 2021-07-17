@@ -66,6 +66,10 @@ article section blockquote {
   background: none;
 }
 
+.gatsby-highlight pre .language-js .operator {
+  background: none;
+}
+
 button {
   border: none;
   margin: 0;
