@@ -1,4 +1,5 @@
 import { Monoid, struct, concatAll } from "fp-ts/lib/Monoid"
+import { Product } from "./interfaces"
 
 export const MonoidProduct: Monoid<number> = {
   concat: (first, second) => first * second,
@@ -16,11 +17,6 @@ export const getMonoidArray = <T>(): Monoid<Array<T>> => ({
 })
 
 // Reimplement example from Semigroup, but now using Monoids
-interface Product {
-  name: string
-  price: number
-  categories: Array<string>
-}
 
 const KeepLongerName: Monoid<string> = {
   concat: (first, second) => (first.length >= second.length ? first : second),

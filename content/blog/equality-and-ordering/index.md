@@ -11,6 +11,7 @@ This is a series of articles where I'm attempting to describe most common algebr
 - [Part 1: Semigroup](/semigroup)
 - [Part 2: Monoid](/monoid)
 - **Part 3: Equality and Ordering**
+- [Part 4: Option](/option)
 
 ---
 

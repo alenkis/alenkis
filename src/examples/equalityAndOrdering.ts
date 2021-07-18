@@ -4,6 +4,7 @@ import * as S from "fp-ts/string"
 import * as A from "fp-ts/array"
 import { pipe } from "fp-ts/lib/function"
 import * as Or from "fp-ts/Ord"
+import { Product } from "./interfaces"
 
 export const EqString: Eq<string> = {
   equals: (first, second) => first === second,
@@ -11,12 +12,6 @@ export const EqString: Eq<string> = {
 
 export const EqNumber: Eq<number> = {
   equals: (first, second) => first === second,
-}
-
-export interface Product {
-  name: string
-  price: number
-  categories: Array<string>
 }
 
 export const EqProduct: Eq<Product> = struct({

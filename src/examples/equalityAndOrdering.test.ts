@@ -6,12 +6,12 @@ import {
   EqString,
   OrdProductByName,
   OrdProductByPrice,
-  Product,
   sort,
 } from "./equalityAndOrdering"
 import * as N from "fp-ts/number"
 import * as S from "fp-ts/string"
 import { pipe } from "fp-ts/lib/function"
+import { Product } from "./interfaces"
 
 describe("Equality and Ordering", () => {
   const product1: Product = {

@@ -11,6 +11,7 @@ This is a series of articles where I'm attempting to describe most common algebr
 - **Part 1: Semigroup**
 - [Part 2: Monoid](/monoid)
 - [Part 3: Equality and Ordering](/equality-and-ordering)
+- [Part 4: Option](/option)
 
 ---
 
@@ -105,7 +106,7 @@ Let's say we have a couple of rules on how we need to combine products:
 One nice approach we can take here is to come up with merge strategies for these individual concerns, and then combine them all when constructing a merge strategy for a whole product:
 
 ```ts
-import { struct } from "fp-ts/Semigroup"
+import { Semigroup, struct } from "fp-ts/Semigroup"
 
 // Always keep the longer name
 const KeepLongerName: Semigroup<string> = {
