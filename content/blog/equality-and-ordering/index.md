@@ -14,6 +14,8 @@ This is a series of articles where I'm attempting to describe most common algebr
 
 ---
 
+## Equality
+
 We can use `Eq` typeclass in order to determine whether two elements of the same type are equal.
 
 ```ts
@@ -150,3 +152,108 @@ EqProductByName.equals(
   { name: "product", price: 100, categories: ["world"] }
 ) // true
 ```
+
+## Ordering
+
+We can use `Ord` typeclass to determine ordering relation between two elements of the same type.
+
+```ts
+import { Eq } from "fp-ts/lib/Eq"
+
+type Ordering = -1 | 0 | 1
+
+interface Ord<A> extends Eq<A> {
+  readonly compare: (first: T, second: T) => Ordering
+}
+
+// first < second
+compare(first, second) === -1
+
+// first > second
+compare(first, second) === 1
+
+// first = second
+compare(first, second) === 0
+```
+
+The following rules must apply:
+
+1. Reflexivity
+
+```ts
+compare(first, first) <= 0
+```
+
+2. Antisymmetry
+
+```ts
+compare(first, second) <= 0 &&
+compare(second, first) <= 0 &&
+// If the two above conditions are true,
+// then first and second are equal
+first === second
+```
+
+3. Transitivity
+
+```ts
+compare(first, second) <= 0 &&
+compare(second, third) <= 0 &&
+// If the two above conditions are true, then the
+// following condition must be true as well
+compare(first, third) <= 0
+```
+
+Based on the antisymmetry rule, we can derive `equals` from `compare`:
+
+```ts
+const EqNumber: Eq<number> = {
+  equals: (first, second) => compare(first, second) === 0,
+}
+```
+
+\
+Similar to `Eq`, we can also order complex types by a specific field:
+
+```ts
+import { Ord, contramap } from "fp-ts/Ord"
+import * as N from "fp-ts/number"
+import * as S from "fp-ts/string"
+
+export const OrdProductByPrice: Ord<Product> = pipe(
+  N.Ord,
+  /* order Products by price field, using number Ord */
+  contramap(({ price }) => price)
+)
+
+export const OrdProductByName: Ord<Product> = pipe(
+  S.Ord,
+  /* order Products by name field, using string Ord */
+  contramap(({ name }) => name)
+)
+
+EqProduct.compare(
+  { name: "product", price: 100, categories: ["hello"] },
+  { name: "product", price: 200, categories: ["hello", "world"] }
+) // -1
+
+// Generic sort function that can order array based on arbitrary Ord instance
+export const sort = <T>(O: Ord<T>) => (array: ReadonlyArray<T>) =>
+  [...array].sort(O.compare)
+
+const product1: Product = { name: "product", price: 300, categories: ["foo"] }
+const product2: Product = { name: "another", price: 100, categories: ["bar"] }
+const product3: Product = { name: "third", price: 200, categories: ["bar", "baz"] }
+const products = [product1, product2, product3]
+
+const sortedByPrice = pipe(
+  products,
+  sort(OrdProductByPrice)
+) // [product2, product3, product1]
+
+const sortedByName = pipe(
+  products,
+  sort(OrdProductByName)
+) // [product2, product1, product3]
+```
+

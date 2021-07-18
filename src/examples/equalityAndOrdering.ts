@@ -2,8 +2,8 @@ import { contramap, Eq, struct } from "fp-ts/Eq"
 import * as N from "fp-ts/number"
 import * as S from "fp-ts/string"
 import * as A from "fp-ts/array"
-import * as B from "fp-ts/boolean"
 import { pipe } from "fp-ts/lib/function"
+import * as Or from "fp-ts/Ord"
 
 export const EqString: Eq<string> = {
   equals: (first, second) => first === second,
@@ -43,3 +43,16 @@ export const EqProductByCategory: Eq<Product> = pipe(
 )
 
 const compareByName = contramap<string, Product>(({ name }) => name)
+
+export const OrdProductByPrice: Or.Ord<Product> = pipe(
+  N.Ord,
+  Or.contramap(({ price }) => price)
+)
+
+export const OrdProductByName: Or.Ord<Product> = pipe(
+  S.Ord,
+  Or.contramap(({ name }) => name)
+)
+
+export const sort = <T>(O: Or.Ord<T>) => (array: ReadonlyArray<T>) =>
+  [...array].sort(O.compare)
