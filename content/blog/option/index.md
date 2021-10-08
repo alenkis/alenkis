@@ -1,7 +1,7 @@
 ---
 title: Option
 date: "2021-07-18T15:00:00.000Z"
-description: "Using the Option typeclasse to model missing values"
+description: "Using the Option typeclass to model missing values"
 categories: [typescript, fp-ts, algebraic structures]
 comments: false
 ---
@@ -39,7 +39,7 @@ const value: number = pipe(
   /* get Option<number> */
   getMaybeNumber(),
   /* pattern match on the value */
-  O.fold(
+  O.match(
     () => 0, // handle None case
     success => success // handle Some<number> case
   )

@@ -15,9 +15,9 @@ This is a series of articles where I'm attempting to describe most common algebr
 
 ---
 
-Composability is arguably one of the stronger features of the functional programming paradigm because it allows us to write modular code and achieve complex behavior by composing the smaller pieces together (think LEGO!). Functional programming provides us patterns to abstract certain operations over different types (making them polymorphic), making them more generic, reusable and testable. One such operation is merging or combining.
+Composability is arguably one of the stronger features of the functional programming paradigm because it allows us to write modular code and achieve complex behavior by composing the smaller pieces together (think LEGO!). Functional programming provides us patterns to abstract certain operations over different types (making them polymorphic), thus achieving more generic, reusable and testable code.
 
-_But, what does it really mean to combine things together?_
+One such operation is merging or combining. _But, what does it really mean to combine things together?_
 
 We already know how to combine strings:
 
@@ -103,7 +103,7 @@ Let's say we have a couple of rules on how we need to combine products:
 2. Keep the product with the lower price
 3. Combine unique categories
 
-One nice approach we can take here is to come up with merge strategies for these individual concerns, and then combine them all when constructing a merge strategy for a whole product:
+One nice approach we can take here is to come up with merge strategies for these individual concerns, and then combine them all when constructing a merge strategy for the whole product:
 
 ```ts
 import { Semigroup, struct } from "fp-ts/Semigroup"
