@@ -1,5 +1,11 @@
 # Alen Kis
 
-- Full stack web developer
-- Typed functional programming advocate - interested in type safety, reliability and functional programming. I'm exploring functional programming topics on [my blog](https://alenkis.com) and in [FP-TS book](https://alenkis.github.io/functional-programming-typescript-book/)
-- Dev for [ShopBonsai](https://shopbonsai.ca), working on distributed e-commerce checkouts
+## Whoami
+- Full stack software developer
+- Typed functional programming advocate - interested in type safety, reliability and functional programming
+- Dev for [ShopBonsai](https://shopbonsai.ca), working on distributed e-commerce checkout
+
+
+## Refs
+- https://alenkis.com
+- https://alenkis.github.io/functional-programming-typescript-book/
