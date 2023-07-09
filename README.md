@@ -3,7 +3,7 @@
 ## Whoami
 - Full stack software developer
 - Typed functional programming advocate - interested in type safety, reliability and functional programming
-- Dev for [ShopBonsai](https://shopbonsai.ca), working on distributed e-commerce checkout
+- Working at [ShopBonsai](https://shopbonsai.ca), helping build a distributed e-commerce checkout
 
 
 ## Refs
