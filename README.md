@@ -2,10 +2,9 @@
 
 ## Whoami
 - Full stack software developer
-- Typed functional programming advocate - interested in type safety, reliability and functional programming
-- Working at [ShopBonsai](https://shopbonsai.ca), helping build a distributed e-commerce checkout
+- Interested in type safety, reliability and functional programming
+- Love to experiment with different programming languages
 
 
 ## Refs
 - https://alenkis.com
-- https://alenkis.github.io/functional-programming-typescript-book/
