@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PostList from '../components/PostList.astro';
+
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+---
+
+<BaseLayout title="Blog" description="Functional programming explorations and software engineering insights">
+  <div class="intro">
+    <h1>Blog</h1>
+    <p class="subtitle">Thoughts on functional programming, TypeScript, and software engineering.</p>
+  </div>
+  <PostList posts={posts} />
+</BaseLayout>
+
+<style>
+  .intro {
+    margin-bottom: 2.5rem;
+  }
+
+  .intro h1 {
+    margin-bottom: 0.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+</style>

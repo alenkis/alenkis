@@ -1,0 +1,139 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+const formattedDate = post.data.date.toLocaleDateString('en-US', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout title={post.data.title} description={post.data.description}>
+  <article class="article">
+    <header class="article-header">
+      <a href="/" class="back-link">← Back to posts</a>
+      <h1>{post.data.title}</h1>
+      <div class="article-meta">
+        <time>{formattedDate}</time>
+        <span class="separator">·</span>
+        <div class="tags">
+          {post.data.categories.map(cat => (
+            <span class="tag">{cat}</span>
+          ))}
+        </div>
+      </div>
+    </header>
+    <div class="article-content">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>
+
+<style>
+  .article {
+    max-width: 100%;
+  }
+
+  .article-header {
+    margin-bottom: 3rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    text-decoration: none;
+    margin-bottom: 1.5rem;
+    transition: color 0.15s ease;
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+  }
+
+  .article-header h1 {
+    font-size: 2.5rem;
+    line-height: 1.2;
+    margin-bottom: 1rem;
+  }
+
+  .article-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  .article-meta time {
+    font-size: 0.9375rem;
+    color: var(--text-secondary);
+  }
+
+  .separator {
+    color: var(--border);
+  }
+
+  .tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+
+  .tag {
+    font-size: 0.8125rem;
+    padding: 0.25rem 0.75rem;
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    color: var(--text-secondary);
+  }
+
+  .article-content {
+    font-size: 1.0625rem;
+    line-height: 1.75;
+  }
+
+  .article-content :global(h2) {
+    margin-top: 3rem;
+  }
+
+  .article-content :global(h3) {
+    margin-top: 2rem;
+  }
+
+  .article-content :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .article-header h1 {
+      font-size: 1.75rem;
+    }
+
+    .article-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.5rem;
+    }
+
+    .separator {
+      display: none;
+    }
+
+    .article-content {
+      font-size: 1rem;
+    }
+  }
+</style>

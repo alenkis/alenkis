@@ -1,0 +1,162 @@
+---
+import ThemeToggle from '../components/ThemeToggle.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Functional programming explorations' } = Astro.props;
+const siteTitle = 'Alen Kis';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <title>{title} | {siteTitle}</title>
+
+    <!-- Inline theme script to prevent flash -->
+    <script is:inline>
+      (function() {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark');
+        }
+      })();
+    </script>
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-QVPFR22ESE"></script>
+    <script is:inline>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-QVPFR22ESE');
+    </script>
+  </head>
+  <body>
+    <div class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <header class="header">
+        <div class="header-content">
+          <a href="/" class="logo">
+            <span class="logo-text">{siteTitle}</span>
+            <span class="logo-subtitle">Functional Programming</span>
+          </a>
+          <ThemeToggle />
+        </div>
+      </header>
+
+      <!-- Main content -->
+      <main class="main-content">
+        <slot />
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <div class="footer-content">
+          <p>&copy; {new Date().getFullYear()} {siteTitle}</p>
+          <p>Built with <a href="https://astro.build" target="_blank" rel="noopener">Astro</a></p>
+        </div>
+      </footer>
+    </div>
+
+    <style>
+      .header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: var(--bg);
+        border-bottom: 1px solid var(--border);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+
+      .header-content {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .logo {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+        gap: 0;
+      }
+
+      .logo-text {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+
+      .logo-subtitle {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        letter-spacing: 0.02em;
+      }
+
+      .logo:hover .logo-text {
+        color: var(--accent);
+      }
+
+      .main-content {
+        flex: 1;
+        max-width: 720px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 3rem 1.5rem;
+      }
+
+      .footer {
+        border-top: 1px solid var(--border);
+        background: var(--bg);
+      }
+
+      .footer-content {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 2rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.875rem;
+        color: var(--text-secondary);
+      }
+
+      .footer-content p {
+        margin: 0;
+        color: var(--text-secondary);
+      }
+
+      @media (max-width: 640px) {
+        .header-content {
+          padding: 0.875rem 1rem;
+        }
+
+        .main-content {
+          padding: 2rem 1rem;
+        }
+
+        .footer-content {
+          flex-direction: column;
+          gap: 0.5rem;
+          text-align: center;
+          padding: 1.5rem 1rem;
+        }
+      }
+    </style>
+  </body>
+</html>

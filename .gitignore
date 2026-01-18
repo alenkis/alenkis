@@ -1,3 +1,24 @@
+# Dependencies
 node_modules/
-.cache/
-public
+
+# Build output
+dist/
+
+# Astro
+.astro/
+
+# Test
+test-results/
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Editor
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
