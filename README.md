@@ -3,8 +3,7 @@
 ## Whoami
 - Full stack software developer
 - Interested in type safety, reliability and functional programming
-- Love to experiment with different programming languages
-
+- Writing Go, Typescript and whatever solves the problem during the day; dreaming lambdas and monads during night
 
 ## Refs
 - https://alenkis.com
