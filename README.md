@@ -3,8 +3,8 @@
 ## Whoami
 - Staff software developer
 - Interested in type safety, reliability and functional programming
-- Writing Go, Typescript and whatever solves the problem during the day; dreaming lambdas and monads during night
-- Building AI memory infrastructure
+- Writing Go, Typescript and whatever tool solves the problem during the day; dreaming lambdas and monads during night
+- Building AI memory infrastructure and agentic systems; exploring compiler driven LLM codegen
 
 ## Refs
 - https://alenkis.com
